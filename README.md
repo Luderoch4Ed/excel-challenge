@@ -1,2 +1,4 @@
 # excel-challenge
-Project to analyze Kickstarter fund raising outcomes
+The purpose of this project is to use Excel and its built-in capabilites to analyze Kickstarter outcomes.
+
+
