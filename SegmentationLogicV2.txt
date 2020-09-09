@@ -1,0 +1,65 @@
+CALCULATE (
+    IFERROR (
+        VALUES ( PriceBands[BandName] ),
+        "Wrong Configuration"
+    ),
+    FILTER (
+        PriceBands,
+        PriceBands[MinPrice] <= FactResellerSales[UnitPrice] &&
+        PriceBands[MaxPrice] > FactResellerSales[UnitPrice]
+    )
+)
+
+=CALCULATE (
+    IFERROR (VALUES ( PriceBands[BandCode] ), -1),
+    FILTER (
+        PriceBands,
+        PriceBands[MinPrice] <= FactResellerSales[UnitPrice] &&
+        PriceBands[MaxPrice] > FactResellerSales[UnitPrice]
+    )
+)
+
+New Stuff***
+
+VAR ResultValue=
+CALCULATE (
+    IFERROR (
+        VALUES ( Segmentation[GoalRange] ),
+        "Overlapping Configuration"
+    ),
+    FILTER (
+        Segmentation,
+        AND(
+           Segmentation[MinGoal] <= StarterBook[UnitPrice],
+           Segmentation[MaxGoal] > StarterBook[UnitPrice]
+        )
+      )
+    )
+  RETURN
+    IF(
+       ISEMPTY(ResultValue),
+        "Gaps in Configuration",
+      ResultValue
+)
+
+Sales[PriceRange] =
+VAR ResultValue =
+    CALCULATE (
+        IFERROR (
+            VALUES ( PriceRanges[PriceRange] ),
+            "Overlapping Configuration"
+        ),
+        FILTER (
+            PriceRanges,
+            AND (
+                PriceRanges[MinPrice] <= Sales[Net Price],
+                PriceRanges[MaxPrice] > Sales[Net Price]
+            )
+        )
+    )
+RETURN
+    IF (
+        ISEMPTY ( ResultValue ),
+        "Holes in Configuration",
+        ResultValue
+    )
