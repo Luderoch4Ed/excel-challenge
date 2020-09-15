@@ -2,6 +2,9 @@
 
 The purppose of this project was to use excel to gain some basic insights into Kickstarter funding campaign outsomces.
 
+https://github.com/Luderoch4Ed/excel-challenge/blob/master/Images/CategoryStats.PNG
+
+
 Some are explored will be determining:
 
 * Create a new sheet with 8 columns:
